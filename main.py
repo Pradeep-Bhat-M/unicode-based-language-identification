@@ -30,6 +30,4 @@ language = "Invalid Identification"
 for ch in data:
     language = block(ch)
 
-
-
 print("\n The Entered Text is identified to be in " + language + " Script!!")
