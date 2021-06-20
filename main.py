@@ -2,7 +2,7 @@ import re
 
 blocks = []
 languages_dict = {}
-past_lang = (65, 122, 'English')
+prevLang = (65, 122, 'English')
 
 def parseInput(inputFile):
     inFile = open(inputFile, encoding="utf8")
@@ -41,11 +41,11 @@ dataByWOrds = parseInput("input.txt")
 
 for word in dataByWOrds:
     unicode = ord(word[0])                          # Fetching the unicode of the character
-    if past_lang[0] <= unicode <= past_lang[1]:
-        language = past_lang[2]
+    if prevLang[0] <= unicode <= prevLang[1]:
+        language = prevLang[2]
     else: 
-        past_lang = block(unicode)                  # Updating past_lang, so that we need not search the whole unicode block again.
-        language = past_lang[2]
+        prevLang = block(unicode)                  # Updating prevLang, so that we need not search the whole unicode block again.
+        language = prevLang[2]
 
     addInDictionary(language)
 
