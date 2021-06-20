@@ -3,7 +3,7 @@ import re
 _blocks = []
 
 def block(ch):
-    assert isinstance(ch, str) and len(ch) == 1, repr(ch)
+    #assert isinstance(ch, str) and len(ch) == 1, repr(ch)
     cp = ord(ch)
     for start, end, name in _blocks:
         if start <= cp <= end:
@@ -20,13 +20,15 @@ def _initBlocks(code_file):
         m = pattern.match(line)
         if m:
             start, end, name = m.groups()
-            _blocks.append((int(start, 16), int(end, 16), name))
+            _blocks.append((int(start, 16), int(end, 16), name)) #converting hex string to integer
 
 _initBlocks("unicodes.txt")
 
 
 input_file = open("input.txt",encoding="utf8")
 data = input_file.read()
+data = re.sub(' +', ' ', data) #removing redundant multiple spaces
+
 
 data_by_words = data.split(' ')
 languages_found = set()
