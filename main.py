@@ -1,16 +1,28 @@
 import re
 
-_blocks = []
+blocks = []
+languages_dict = {}
 
-def block(ch):
-    #assert isinstance(ch, str) and len(ch) == 1, repr(ch)
-    cp = ord(ch)
-    for start, end, name in _blocks:
-        if start <= cp <= end:
-            return name
+def parseInput():
+    input_file = open("200.txt",encoding="utf8")
+    data = input_file.read()
+    data = re.sub(' +', ' ', data)                  # Removing redundant multiple spaces
+    data = re.sub('\n+','\n',data)                  # Removing extra lines
+    return(data.split(' '))
 
 
-def _initBlocks(code_file):
+def addInDictionary(language):
+    if language in languages_dict:
+        languages_dict.get(language).append(word)
+    else:
+        languages_dict[language] = [word]
+
+def block(unicode):
+    for start, end, name in blocks:
+        if start <= unicode <= end:
+            return (start, end, name)
+
+def makeBlocks(code_file):                          # Loading all the unicode ranges
 
     file = open(code_file)
     text = file.read()
@@ -20,26 +32,26 @@ def _initBlocks(code_file):
         m = pattern.match(line)
         if m:
             start, end, name = m.groups()
-            _blocks.append((int(start, 16), int(end, 16), name)) #converting hex string to integer
-
-_initBlocks("unicodes.txt")
+            blocks.append((int(start, 16), int(end, 16), name))    # Converting hexString to Integer
 
 
-input_file = open("input.txt",encoding="utf8")
-data = input_file.read()
-data = re.sub(' +', ' ', data) #removing redundant multiple spaces
-data = re.sub('\n+','\n',data) #removing extra lines
+makeBlocks("unicodes.txt")
+past_lang = (65, 122, 'English')
 
+dataByWOrds = parseInput()
 
-data_by_words = data.split(' ')
-languages_dict = {}
+for word in dataByWOrds:
+    unicode = ord(word[0])                          # Fetching the unicode of the character
+    if past_lang[0] <= unicode <= past_lang[1]:
+        language = past_lang[2]
+    else: 
+        past_lang = block(unicode)
+        language = past_lang[2]
 
-
-for word in data_by_words:
-    language = block(word[0])
-    if language in languages_dict:
-        languages_dict.get(language).append(word)
-    else:
-        languages_dict[language] = [word]
+    addInDictionary(language)
 
 print(languages_dict)
+
+
+
+
