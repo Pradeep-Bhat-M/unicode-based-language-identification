@@ -28,13 +28,22 @@ _initBlocks("unicodes.txt")
 input_file = open("input.txt",encoding="utf8")
 data = input_file.read()
 data = re.sub(' +', ' ', data) #removing redundant multiple spaces
+data = re.sub('\n+','\n',data) #removing extra lines
 
 
 data_by_words = data.split(' ')
-languages_found = set()
+languages_dict = {}
+
+# first_word = data_by_words[0]
+# first_char = first_word[0]
+# first_word_language = block(first_char)
+# languages_dict[first_word_language] = [first_word]
 
 for word in data_by_words:
     language = block(word[0])
-    languages_found.add(language)
+    if language in languages_dict:
+        languages_dict.get(language).append(word)
+    else:
+        languages_dict[language] = [word]
 
-print(languages_found)
+print(languages_dict)
