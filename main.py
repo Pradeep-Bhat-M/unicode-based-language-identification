@@ -34,10 +34,6 @@ data = re.sub('\n+','\n',data) #removing extra lines
 data_by_words = data.split(' ')
 languages_dict = {}
 
-# first_word = data_by_words[0]
-# first_char = first_word[0]
-# first_word_language = block(first_char)
-# languages_dict[first_word_language] = [first_word]
 
 for word in data_by_words:
     language = block(word[0])
