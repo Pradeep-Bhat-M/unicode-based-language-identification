@@ -32,8 +32,9 @@
 #
 # @missing: 0000..10FFFF; No_Block
 # source https://unicode.org/Public/4.1.0/ucd/Blocks.txt
-0041..007A; English
-0000..007F; Basic Latin
+0041..005A; English
+0061..007A; English
+00C0..007F; Basic Latin
 0080..00FF; Latin-1 Supplement
 0100..017F; Latin Extended-A
 0180..024F; Latin Extended-B

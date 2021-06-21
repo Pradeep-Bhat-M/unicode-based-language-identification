@@ -22,6 +22,7 @@ def block(unicode):                                 # Comparing Unicode ranges t
     for start, end, name in blocks:
         if start <= unicode <= end:
             return (start, end, name)
+    return (0, 0, "No Such Script Can be Identified")
 
 def makeBlocks(code_file):                          # Loading all the Unicode ranges
 
@@ -40,7 +41,10 @@ makeBlocks("unicodes.txt")
 dataByWOrds = parseInput("input.txt")
 
 for word in dataByWOrds:
-    unicode = ord(word[0])                          # Fetching the unicode of the character
+    if word[0] == '\n':
+        unicode = ord(word[1])
+    else:
+        unicode = ord(word[0])                          # Fetching the unicode of the character
     if prevLang[0] <= unicode <= prevLang[1]:
         language = prevLang[2]
     else: 
