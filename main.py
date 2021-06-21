@@ -38,13 +38,14 @@ def makeBlocks(code_file):                          # Loading all the Unicode ra
 
 
 makeBlocks("unicodes.txt")
-dataByWOrds = parseInput("input.txt")
+dataByWOrds = parseInput("200.txt")
 
 for word in dataByWOrds:
-    if word[0] == '\n':
-        unicode = ord(word[1])
-    else:
-        unicode = ord(word[0])                          # Fetching the unicode of the character
+    word = re.sub('\W+','', word)               # Removing Special Characters
+    word = re.sub('[0-9]+','', word)            # Removing Numbers (Arabic)
+    if not word:
+        continue
+    unicode = ord(word[0])                          # Fetching the unicode of the character
     if prevLang[0] <= unicode <= prevLang[1]:
         language = prevLang[2]
     else: 
